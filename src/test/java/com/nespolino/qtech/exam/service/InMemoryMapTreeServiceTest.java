@@ -67,8 +67,8 @@ class InMemoryMapTreeServiceTest {
     inMemoryMapTreeService.addNodeAndGetId("ROOT", "CHILD_2", Collections.emptyMap());
     inMemoryMapTreeService.moveNode("CHILD_1", "ROOT", "CHILD_2");
     Tree<Map<String, Object>> tree = inMemoryMapTreeService.getTreeData();
-    assertThat(tree.getChildren().get(0).getNodeId()).isEqualTo("CHILD_2");
-    assertThat(tree.getChildren().get(0).getChildren().get(0).getNodeId()).isEqualTo("CHILD_1");
+    assertThat(tree.getChildren().getFirst().getNodeId()).isEqualTo("CHILD_2");
+    assertThat(tree.getChildren().getFirst().getChildren().getFirst().getNodeId()).isEqualTo("CHILD_1");
   }
 
   @Test
