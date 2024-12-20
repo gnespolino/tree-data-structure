@@ -1,4 +1,4 @@
-package com.nespolino.qtech.exam.data;
+package com.nespolino.qtech.exam.exception;
 
 public class NodeNotFoundException extends IllegalArgumentException {
 

@@ -1,9 +1,10 @@
 package com.nespolino.qtech.exam.service;
 
-import com.nespolino.qtech.exam.data.DuplicateIdException;
-import com.nespolino.qtech.exam.data.Tree;
-import com.nespolino.qtech.exam.data.TreeFactory;
-import com.nespolino.qtech.exam.data.TreeOperations;
+import com.nespolino.qtech.exam.exception.DuplicateIdException;
+import com.nespolino.qtech.exam.treedata.Tree;
+import com.nespolino.qtech.exam.treedata.TreeFactory;
+import com.nespolino.qtech.exam.treedata.TreeOperations;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public abstract class TreeService<T> {
     return Optional.ofNullable(treeRepository.getTreeData()).orElseGet(this::getDefaultTree);
   }
 
-  abstract Tree<T> getDefaultTree();
+  protected abstract Tree<T> getDefaultTree();
 
   public String addNodeAndGetId(String parentId, String nodeId, T data) {
     Tree<T> treeData = getTreeData();
@@ -45,10 +46,17 @@ public abstract class TreeService<T> {
     return tTree;
   }
 
-  public List<T> getDescendantsData(String nodeId) {
+  public List<Tree<T>> getDescendantsData(String nodeId) {
     return treeOperations
         .findNode(getTreeData(), nodeId)
         .map(treeOperations::getDescendantsData)
-        .orElse(List.of());
+        .orElse(Collections.emptyList())
+        .stream()
+        .map(this::withNoChildren)
+        .toList();
+  }
+
+  private Tree<T> withNoChildren(Tree<T> tTree) {
+    return TreeFactory.createTree(tTree.getNodeId(), tTree.getData());
   }
 }

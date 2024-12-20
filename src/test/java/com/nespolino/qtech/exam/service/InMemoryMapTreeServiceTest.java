@@ -5,9 +5,11 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.nespolino.qtech.exam.data.DuplicateIdException;
-import com.nespolino.qtech.exam.data.Tree;
-import com.nespolino.qtech.exam.data.TreeOperations;
+import com.nespolino.qtech.exam.exception.DuplicateIdException;
+import com.nespolino.qtech.exam.map.InMemoryMapTreeRepository;
+import com.nespolino.qtech.exam.map.InMemoryMapTreeService;
+import com.nespolino.qtech.exam.treedata.Tree;
+import com.nespolino.qtech.exam.treedata.TreeOperations;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
@@ -117,7 +119,7 @@ class InMemoryMapTreeServiceTest {
 
   private Set<String> asSetOfString(String nodeId) {
     return inMemoryMapTreeService.getDescendantsData(nodeId).stream()
-        .map(map -> (String) map.get("name"))
+        .map(Tree::getNodeId)
         .collect(Collectors.toSet());
   }
 }

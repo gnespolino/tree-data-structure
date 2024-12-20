@@ -1,4 +1,4 @@
-package com.nespolino.qtech.exam.data;
+package com.nespolino.qtech.exam.treedata;
 
 import java.util.ArrayList;
 import java.util.Optional;

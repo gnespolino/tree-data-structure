@@ -1,8 +1,10 @@
-package com.nespolino.qtech.exam.data;
+package com.nespolino.qtech.exam.treedata;
 
+import com.nespolino.qtech.exam.exception.NodeNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -42,7 +44,7 @@ public class TreeOperations<T> {
     Tree<T> toParent = getNode(tree, toParentId);
     Tree<T> node =
         fromParent.getChildren().stream()
-            .filter(child -> child.getNodeId().equals(nodeId))
+            .filter(child -> StringUtils.equals(child.getNodeId(), nodeId))
             .findFirst()
             .orElseThrow(() -> new NodeNotFoundException(nodeId));
     fromParent.getChildren().remove(node);
@@ -57,18 +59,18 @@ public class TreeOperations<T> {
     return findNode(tree, nodeId).isPresent();
   }
 
-  public List<T> getDescendantsData(Tree<T> tree) {
+  public List<Tree<T>> getDescendantsData(Tree<T> tree) {
     return getDescendantsData(tree, false);
   }
 
-  public List<T> getDescendantsData(Tree<T> tree, boolean shouldIncludeSelf) {
-    List<T> descentandsData = new ArrayList<>();
+  public List<Tree<T>> getDescendantsData(Tree<T> tree, boolean shouldIncludeSelf) {
+    List<Tree<T>> descendantsData = new ArrayList<>();
     if (shouldIncludeSelf) {
-      descentandsData.add(tree.getData());
+      descendantsData.add(tree);
     }
     for (Tree<T> child : tree.getChildren()) {
-      descentandsData.addAll(getDescendantsData(child, true));
+      descendantsData.addAll(getDescendantsData(child, true));
     }
-    return descentandsData;
+    return descendantsData;
   }
 }

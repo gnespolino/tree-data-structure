@@ -1,8 +1,9 @@
-package com.nespolino.qtech.exam.service;
+package com.nespolino.qtech.exam.map;
 
-import com.nespolino.qtech.exam.data.Tree;
-import com.nespolino.qtech.exam.data.TreeFactory;
-import com.nespolino.qtech.exam.data.TreeOperations;
+import com.nespolino.qtech.exam.service.TreeService;
+import com.nespolino.qtech.exam.treedata.Tree;
+import com.nespolino.qtech.exam.treedata.TreeFactory;
+import com.nespolino.qtech.exam.treedata.TreeOperations;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class InMemoryMapTreeService extends TreeService<Map<String, Object>> {
   }
 
   @Override
-  Tree<Map<String, Object>> getDefaultTree() {
+  public Tree<Map<String, Object>> getDefaultTree() {
     return TreeFactory.createTree("ROOT", Map.of("name", "ROOT"));
   }
 }

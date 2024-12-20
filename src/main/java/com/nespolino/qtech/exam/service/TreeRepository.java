@@ -1,8 +1,8 @@
 package com.nespolino.qtech.exam.service;
 
-import com.nespolino.qtech.exam.data.Tree;
+import com.nespolino.qtech.exam.treedata.Tree;
 
-interface TreeRepository<T> {
+public interface TreeRepository<T> {
 
   Tree<T> getTreeData();
 
