@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.nespolino.qtech.exam.data.DuplicateIdException;
 import com.nespolino.qtech.exam.data.Tree;
+import com.nespolino.qtech.exam.data.TreeOperations;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
@@ -21,7 +22,8 @@ class InMemoryMapTreeServiceTest {
 
   @BeforeEach
   public void setUp() {
-    inMemoryMapTreeService = new InMemoryMapTreeService(new InMemoryMapTreeRepository());
+    inMemoryMapTreeService =
+        new InMemoryMapTreeService(new InMemoryMapTreeRepository(), new TreeOperations<>());
   }
 
   @Test
