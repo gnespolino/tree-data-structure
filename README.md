@@ -25,6 +25,8 @@ The API is documented using Swagger. You can access the documentation at
 
 In the following examples, I'm gonna use the `Maps<String, Object>` implementation. However just
 replace the `map-tree` with `string-tree` to use the other implementation.
+Also, by default, content is returned in JSON format, unless an `Accept: text/xml` header is sent (
+to get the responses in XML) or `Content-Type: application/xml` (to send the payload in XML).
 
 ### Get the tree
 
